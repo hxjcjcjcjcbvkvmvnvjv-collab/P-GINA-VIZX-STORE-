@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VIZX STORE</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+*{
+box-sizing:border-box;
+-webkit-tap-highlight-color: transparent;
+user-select:none;
+margin:0;
+padding:0;
+}
+
+body{
+background:#050507;
+color:white;
+font-family:"Poppins",sans-serif;
+overflow-x:hidden;
+}
+
+/* ==== PANTALLA DE CARGA ==== */
+#loading-screen{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:#000;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+z-index:9999;
+}
+
+#loading-screen h1{
+font-family:"Orbitron",sans-serif;
+color:#ff2b2b;
+font-size:48px;
+margin-bottom:30px;
+text-shadow:0 0 20px rgba(255,0,0,0.6);
+animation:glow 2s infinite alternate;
+}
+
+#progress-bar{
+width:300px;
+height:10px;
+border:2px solid #ff2b2b;
+border-radius:10px;
+overflow:hidden;
+margin-bottom:20px;
+}
+
+#progress-bar-inner{
+width:0%;
+height:100%;
+background:linear-gradient(90deg,#ff0000,#ff4d4d);
+transition: width 0.2s;
+}
+
+#loading-text{
+color:#fff;
+font-size:16px;
+opacity:0.8;
+}
+
+/* === RESTO DE LA PÁGINA === */
+canvas{
+position:fixed;
+top:0;
+left:0;
+z-index:-1;
+}
+
+header{
+text-align:center;
+padding:80px 20px 40px 20px;
+}
+
+header h1{
+font-family:"Orbitron",sans-serif;
+font-size:50px;
+letter-spacing:4px;
+margin:0;
+color:#ff2b2b;
+text-shadow:0 0 20px rgba(255,0,0,0.6);
+animation:glow 3s infinite alternate;
+}
+
+header p{
+opacity:.8;
+margin-top:10px;
+}
+
+@keyframes glow{
+from{text-shadow:0 0 10px #ff0000}
+to{text-shadow:0 0 30px #ff0000}
+}
+
+/* CREATOR TAG */
+#creator{
+position:fixed;
+bottom:10px;
+right:10px;
+background:rgba(255,255,255,0.05);
+padding:8px 12px;
+border-radius:8px;
+backdrop-filter:blur(10px);
+font-family:"Orbitron",sans-serif;
+color:#ff2b2b;
+letter-spacing:1px;
+font-size:14px;
+z-index:10000;
+}
+
+/* CONTENIDO PRINCIPAL */
+.container{
+max-width:1200px;
+margin:auto;
+padding:20px;
+display:none;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+gap:25px;
+margin-top:40px;
+}
+
+.card{
+background:rgba(255,255,255,0.05);
+border-radius:18px;
+padding:30px 25px;
+backdrop-filter:blur(15px);
+border:1px solid rgba(255,255,255,0.08);
+box-shadow:0 0 30px rgba(0,0,0,0.6);
+text-align:center;
+transition:all .35s ease;
+}
+
+.card:hover{
+transform:translateY(-10px) scale(1.02);
+box-shadow:0 0 40px rgba(255,0,0,0.4);
+}
+
+.card h3{
+font-family:"Orbitron";
+margin-top:0;
+letter-spacing:2px;
+}
+
+.price{
+font-size:32px;
+margin:15px 0;
+color:#ff3a3a;
+font-weight:600;
+}
+
+.btn{
+display:inline-block;
+margin-top:15px;
+padding:12px 22px;
+border-radius:10px;
+text-decoration:none;
+color:white;
+background:linear-gradient(90deg,#8b0000,#ff0000);
+font-weight:600;
+transition:all .3s ease;
+}
+
+.btn:hover{
+transform:scale(1.08);
+box-shadow:0 0 20px red;
+}
+
+.section{
+text-align:center;
+margin-top:70px;
+}
+
+.section h2{
+font-family:"Orbitron";
+letter-spacing:3px;
+}
+
+footer{
+text-align:center;
+padding:40px;
+margin-top:60px;
+opacity:.6;
+font-size:14px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- PANTALLA DE CARGA -->
+<div id="loading-screen">
+<h1>VIZX STORE</h1>
+<div id="progress-bar"><div id="progress-bar-inner"></div></div>
+<div id="loading-text">Cargando...</div>
+</div>
+
+<!-- CANVAS DE FONDO -->
+<canvas id="net"></canvas>
+
+<header>
+<h1>VIZX STORE</h1>
+<p>Proyecto oficial de optimización VIZX</p>
+</header>
+
+<!-- CREATOR TAG -->
+<div id="creator">VIZX 🇦🇱</div>
+
+<div class="container">
+<!-- SECCIÓN PLANES -->
+<div class="section">
+<h2>Planes disponibles</h2>
+<p>Acceso a las carpetas y optimización del proyecto</p>
+</div>
+
+<div class="grid">
+<!-- PLAN 300 -->
+<div class="card">
+<h3>PLAN 300</h3>
+<div class="price">𝟑𝟎𝟎 𝐃𝐈𝐀𝐌𝐀𝐍𝐓𝐄𝐒 💎</div>
+<p>𝐎𝐏𝐓𝐈𝐌𝐈𝐙𝐀𝐂𝐈𝐎𝐍 𝐁𝐀𝐒𝐈𝐂𝐀📱<br>𝐌𝐄𝐉𝐎𝐑 𝐑𝐄𝐒𝐏𝐔𝐄𝐒𝐓𝐀💸<br>𝐌𝐄𝐉𝐎𝐑 𝐅𝐋𝐔𝐈𝐃𝐄𝐙⛷️</p>
+<a class="btn" href="https://wa.me/527121327359?text=HOLA%20BUENAS%2C%20me%20interesa%20comprar%20el%20PLAN%20300%20de%20VIZX">Comprar</a>
+</div>
+
+<!-- PLAN 500 -->
+<div class="card">
+<h3>PLAN 500</h3>
+<div class="price">𝟓𝟎𝟎 𝐃𝐈𝐀𝐌𝐀𝐍𝐓𝐄𝐒 💎</div>
+<p>𝐎𝐏𝐓𝐈𝐌𝐈𝐙𝐀𝐂𝐈𝐎𝐍 𝐀𝐕𝐀𝐍𝐙𝐀𝐃𝐀🇦🇱<br>𝐌𝐄𝐉𝐎𝐑 𝐄𝐒𝐓𝐀𝐁𝐈𝐋𝐈𝐃𝐀𝐃🤺<br>𝐀𝐂𝐂𝐄𝐒𝐎 𝐏𝐎𝐑 𝟏 𝐌𝐄𝐒🕷️</p>
+<a class="btn" href="https://wa.me/51969805512?text=HOLA%20BUENAS%2C%20me%20interesa%20comprar%20el%20PLAN%20500%20de%20VIZX">Comprar</a>
+</div>
+
+<!-- PLAN 1K -->
+<div class="card">
+<h3>PLAN 1K</h3>
+<div class="price">𝟏𝟎𝟎𝟎 𝐃𝐈𝐀𝐌𝐀𝐍𝐓𝐄𝐒 💎</div>
+<p>𝐂𝐎𝐍𝐅𝐈𝐆𝐔𝐑𝐀𝐂𝐈𝐎𝐍 𝐀𝐕𝐀𝐍𝐙𝐀𝐃𝐀🧑🏻‍💻<br>𝐌𝐀𝐘𝐎𝐑 𝐑𝐄𝐍𝐃𝐈𝐌𝐈𝐄𝐍𝐓𝐎🏂🏻<br>𝐀𝐂𝐂𝐄𝐒𝐎 𝐏𝐎𝐑 𝟏 𝐌𝐄𝐒🕷️</p>
+<a class="btn" href="https://wa.me/522331217082?text=HOLA%20BUENAS%2C%20me%20interesa%20comprar%20el%20PLAN%201000%20de%20VIZX">Comprar</a>
+</div>
+
+<!-- PLAN 2K -->
+<div class="card">
+<h3>PLAN 2K</h3>
+<div class="price">𝟐𝟎𝟎𝟎 𝐃𝐈𝐀𝐌𝐀𝐍𝐓𝐄𝐒 💎</div>
+<p>𝐀𝐂𝐂𝐄𝐒𝐎 𝐂𝐎𝐌𝐏𝐋𝐄𝐓𝐎📱<br>𝐀𝐂𝐓𝐔𝐀𝐋𝐈𝐙𝐀𝐂𝐈𝐎𝐍𝐄𝐒🧑🏻‍💻<br>𝐒𝐎𝐏𝐎𝐑𝐓𝐄 𝐃𝐈𝐑𝐄𝐂𝐓𝐎</p>
+<a class="btn" href="https://wa.me/573208522413?text=HOLA%20BUENAS%2C%20me%20interesa%20comprar%20el%20PLAN%202000%20de%20VIZX">Comprar</a>
+</div>
+</div>
+
+<!-- NUEVA SECCIÓN: GRUPO DE PAGA -->
+<div class="section">
+<h2>ENTRAR GRUPO DE PAGÁ 🇦🇱</h2>
+<p>VALOR 300 O 500 DIAMANTES, depende del tiempo</p>
+<div class="grid">
+<div class="card">
+<h3>GRUPO VIP</h3>
+<div class="price">𝟑𝟎𝟎 / 𝟓𝟎𝟎 𝐃𝐈𝐀𝐌𝐀𝐍𝐓𝐄𝐒 💎</div>
+<p>Acceso directo al grupo VIP de Pagá🇦🇱</p>
+<a class="btn" href="https://wa.me/573208522413?text=HOLA%20BUENAS%2C%20me%20interesa%20entrar%20al%20GRUPO%20DE%20PAGA">Entrar al grupo</a>
+</div>
+</div>
+</div>
+
+<div class="section">
+<h2>Suscripción mensual</h2>
+<p>Las carpetas funcionan mediante acceso mensual. Cuando termine el mes puedes renovar nuevamente tu acceso.</p>
+</div>
+</div>
+
+<footer>
+VIZX PROJECTO Sistema en desarrollo
+</footer>
+
+<script>
+// BLOQUEAR COPIAR Y MENÚ CONTEXTUAL
+document.addEventListener("contextmenu",e=>e.preventDefault());
+document.addEventListener("selectstart",e=>e.preventDefault());
+document.addEventListener("copy",e=>e.preventDefault());
+
+// CANVAS DE PARTÍCULAS
+const canvas = document.getElementById("net");
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+let particles = [];
+for(let i=0;i<120;i++){
+particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,vx:(Math.random()-0.5)*0.7,vy:(Math.random()-0.5)*0.7});
+}
+function draw(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+for(let i=0;i<particles.length;i++){
+let p = particles[i];
+p.x+=p.vx;p.y+=p.vy;
+if(p.x<0||p.x>canvas.width)p.vx*=-1;
+if(p.y<0||p.y>canvas.height)p.vy*=-1;
+ctx.fillStyle="red";
+ctx.beginPath();ctx.arc(p.x,p.y,3,0,Math.PI*2);ctx.fill();
+for(let j=i+1;j<particles.length;j++){
+let p2 = particles[j];
+let dx=p.x-p2.x; let dy=p.y-p2.y;
+let dist=Math.sqrt(dx*dx+dy*dy);
+if(dist<120){ctx.strokeStyle="rgba(255,0,0,0.25)";
+ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(p2.x,p2.y);ctx.stroke();}
+}
+}
+requestAnimationFrame(draw);
+}
+draw();
+
+// ==== PANTALLA DE CARGA ====
+let progress = 0;
+const progressBar = document.getElementById("progress-bar-inner");
+const loadingScreen = document.getElementById("loading-screen");
+const container = document.querySelector(".container");
+
+function loading() {
+progress += Math.random()*5+1;
+if(progress>=100) progress=100;
+progressBar.style.width = progress+"%";
+document.getElementById("loading-text").innerText = "Cargando "+Math.floor(progress)+"%";
+if(progress<100){
+setTimeout(loading,100);
+}else{
+setTimeout(()=>{
+loadingScreen.style.display="none";
+container.style.display="block";
+speakWelcome();
+},500);
+}
+}
+loading();
+
+// ==== VOZ AL CARGAR Y AL TOCAR TARJETA ====
+function speakWelcome(){
+const mensaje = new SpeechSynthesisUtterance("Proyecto Modificaciones VIP");
+mensaje.lang = "es-ES";
+mensaje.rate = 0.9;
+mensaje.pitch = 1;
+speechSynthesis.speak(mensaje);
+}
+
+// Sonido al tocar cada botón con retraso
+const cards = document.querySelectorAll(".card .btn");
+cards.forEach(btn=>{
+btn.addEventListener("click",()=>{
+setTimeout(()=>{
+const clickMsg = new SpeechSynthesisUtterance("Seleccionaste una opción");
+clickMsg.lang="es-ES";
+clickMsg.rate=1;
+clickMsg.pitch=1;
+speechSynthesis.speak(clickMsg);
+}, 300); // 300ms de retraso
+});
+});
+</script>
+</body>
+</html>
